@@ -40,42 +40,6 @@ if ('IntersectionObserver' in window && sections.length) {
   sections.forEach((sec) => navObserver.observe(sec));
 }
 
-// ---- Project live-preview toggle (lazy-loads the video only on demand) ----
-const previewToggle = document.getElementById('previewToggle');
-const previewWrap = document.getElementById('previewWrap');
-const videoFrame = document.getElementById('videoFrame');
-const YOUTUBE_ID = '2mjQMyqT9LM';
-let videoLoaded = false;
-
-if (previewToggle) {
-  previewToggle.addEventListener('click', () => {
-    const isHidden = previewWrap.hasAttribute('hidden');
-
-    if (isHidden) {
-      if (!videoLoaded) {
-        const iframe = document.createElement('iframe');
-        iframe.src = `https://www.youtube.com/embed/${YOUTUBE_ID}?rel=0`;
-        iframe.title = 'Capacity Connect — live preview';
-        iframe.loading = 'lazy';
-        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-        iframe.allowFullscreen = true;
-        videoFrame.appendChild(iframe);
-        videoLoaded = true;
-      }
-      previewWrap.removeAttribute('hidden');
-      previewToggle.setAttribute('aria-expanded', 'true');
-      previewToggle.querySelector('svg').outerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 6h12v12H6z"/></svg>';
-      previewToggle.lastChild.textContent = ' Hide preview';
-      previewWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    } else {
-      previewWrap.setAttribute('hidden', '');
-      previewToggle.setAttribute('aria-expanded', 'false');
-      previewToggle.querySelector('svg').outerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
-      previewToggle.lastChild.textContent = ' Watch live preview';
-    }
-  });
-}
-
 // ---- Gentle reveal-on-scroll for section headers and cards ----
 const revealTargets = document.querySelectorAll('.section-head, .skill-group, .project-card, .ncc-card, .interest-card');
 
